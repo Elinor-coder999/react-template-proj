@@ -1,7 +1,8 @@
 const { useState, useEffect, useRef } = React
 
 export function SeasonClock() {
-    const [time, setTime] = useState(new Date()) 
+    const [realTime, setRealTime] = useState(new Date())  // Real-time clock
+    const [customTime, setCustomTime] = useState(new Date()) // Custom time logic
     const [secondsElapsed, setSecondsElapsed] = useState(0) 
     const [isDark, setIsDark] = useState(false)
     const intervalIdRef = useRef()
@@ -14,38 +15,39 @@ export function SeasonClock() {
     }
 
     useEffect(() => {
-        //* Set an interval to update the time every second
+        const realTimeInterval = setInterval(() => {
+            //* Update real-time
+            setRealTime(new Date())  
+        }, 1000)
+
+        //* Set interval for time updates (day/month) for changes
         intervalIdRef.current = setInterval(() => {
-            setSecondsElapsed((seconds) => {
-                const newSeconds = seconds + 1
+            setSecondsElapsed((prevSeconds) => {
+                const newSeconds = prevSeconds + 1
 
-                // setTime(new Date())
+                const updatedCustomTime = new Date(customTime)
 
-                //* time change updates
-                const updatedTime = new Date(time)
-
-                //* After 10 seconds, increment the day
+                //* After 10 seconds, the day
                 if (newSeconds % 10 === 0) {
-                    updatedTime.setDate(updatedTime.getDate() + 1)
+                    updatedCustomTime.setDate(updatedCustomTime.getDate() + 1)
                 }
 
-                //* After 15 seconds, change month
+                //* After 15 seconds, the month
                 if (newSeconds % 15 === 0) {
-                    updatedTime.setMonth(updatedTime.getMonth() + 1)
+                    updatedCustomTime.setMonth(updatedCustomTime.getMonth() + 1)
                 }
-
-                //* Update the time
-                setTime(updatedTime)
+//* Update time
+                setCustomTime(updatedCustomTime)  
 
                 return newSeconds
             })
-            setTime(new Date())
         }, 1000)
 
         return () => {
-            clearInterval(intervalIdRef.current)
+            clearInterval(intervalIdRef.current)  
+            clearInterval(realTimeInterval)  
         }
-    }, [time]) 
+    }, [customTime])
 
     const getMonthName = (monthIndex) => {
         const months = [
@@ -57,13 +59,7 @@ export function SeasonClock() {
 
     const getDayName = (dayIndex) => {
         const days = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
         ]
         return days[dayIndex]
     }
@@ -73,11 +69,12 @@ export function SeasonClock() {
     }
 
     const darkClass = isDark ? 'dark' : ''
-    const season = getSeason(time.getMonth())
-    const month = getMonthName(time.getMonth())
-    const day = getDayName(time.getDay())
+    const season = getSeason(customTime.getMonth())
+    const month = getMonthName(customTime.getMonth())
+    const day = getDayName(customTime.getDay())
 
-    const formattedTime = time.toLocaleTimeString()
+    //* real time
+    const formattedRealTime = realTime.toLocaleTimeString() 
 
     return (
         <section className={`season-clock season ${season} ${darkClass}`}>
@@ -91,7 +88,7 @@ export function SeasonClock() {
             />
             <h2>{month}</h2>
             <h3>{day}</h3>
-            <p>{formattedTime}</p>
+            <p>{formattedRealTime}</p>  
         </section>
     )
 }
