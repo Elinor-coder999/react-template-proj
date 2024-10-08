@@ -1,0 +1,36 @@
+.animal-counter {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+h2 {
+    background-color: red;
+    text-align: center;
+}
+
+section.count-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%
+}
+
+ td {
+    border: 1px solid white; 
+    padding: 10px; 
+    text-align: left; 
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline; 
+}
+
+table {
+    background-color: red;
+
+}

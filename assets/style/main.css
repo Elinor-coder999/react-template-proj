@@ -8,6 +8,8 @@
 @import 'base/layout.css';
 @import 'base/forms.css';
 
+
 /* Components */
 @import 'cmps/app-header.css';
 @import 'cmps/user-msg.css';
+@import 'cmps/animal-list.css'
