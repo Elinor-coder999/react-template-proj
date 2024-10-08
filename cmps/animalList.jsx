@@ -14,7 +14,7 @@ export function AnimalList() {
                 <table>
                     <thead>
                         <tr>
-                            <th>haloha</th>
+                            <th>Rate Animals</th>
                         </tr>
                     </thead>
                     <tbody>

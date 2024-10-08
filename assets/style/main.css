@@ -12,4 +12,5 @@
 /* Components */
 @import 'cmps/app-header.css';
 @import 'cmps/user-msg.css';
-@import 'cmps/animal-list.css'
+@import 'cmps/animal-list.css';
+@import 'cmps/count-down.css';
