@@ -1,4 +1,5 @@
 import { Home } from "./pages/Home.jsx"
+// import {SeasonClock} from "./pages/Home.jsx"
 
 export function App() {
     return (
@@ -8,6 +9,7 @@ export function App() {
             </header>
             <main className="main-layout">
                 <Home />
+                
             </main>
         </section>
     )
